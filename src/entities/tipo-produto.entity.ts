@@ -19,4 +19,10 @@ export class TipoProduto {
         length: 30,
     })
     descricao: string;
+
+    @Column({
+        name: 'produto_acabado',
+        type: 'bool'
+    })
+    produtoAcabado: boolean;
 }
