@@ -1,7 +1,4 @@
-import {Entity, Column, OneToOne, JoinColumn } from "typeorm";
-
-import { TipoProduto } from "./tipo-produto.entity";
-import { UnidadeMedida } from "./unidade-medida.entity";
+import {Entity, Column } from "typeorm";
 
 @Entity({
     name: 'produto'
@@ -83,12 +80,4 @@ export class Produto {
         scale: 2,
     })
     margem: number;
-
-    @OneToOne(() => TipoProduto)
-    @JoinColumn({ name: 'id_tipo_produto' })
-    tipoProduto: TipoProduto;
-
-    @OneToOne(() => UnidadeMedida)
-    @JoinColumn({ name: 'id_unidade_medida' })
-    unidadeMedida: UnidadeMedida;
 }
