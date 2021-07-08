@@ -18,20 +18,18 @@ export class AppService {
         return result;
     };
 
-/*
-    async deleteCliente(id: number) {
-        const result = await this.clienteRepository.deleteCliente(id);
+    async updateProduto(produto: Produto) {
+        const result = await this.produtoRepository.updateProduto(produto);
         return result;
     };
 
-    async updateCliente(cliente: Cliente) {
-        const result = await this.clienteRepository.updateCliente(cliente);
+    async createProduto(produto: Produto) {
+        const result = await this.produtoRepository.createProduto(produto);
         return result;
     };
 
-    async createCliente(cliente: Cliente) {
-        const result = await this.clienteRepository.createCliente(cliente);
+    async deleteProduto(id: number) {
+        const result = await this.produtoRepository.deleteProduto(id);
         return result;
     };
-*/
 }

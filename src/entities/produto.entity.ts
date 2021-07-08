@@ -37,6 +37,18 @@ export class Produto {
     descricao: string;
 
     @Column({
+        name: 'id_tipo_produto',
+        type: 'int',
+    })
+    idTipoProduto: number;
+
+    @Column({
+        name: 'id_unidade_medida',
+        type: 'int',
+    })
+    idUnidadeMedida: number;
+
+    @Column({
         name: 'estoque_minimo',
         type: 'int',
     })

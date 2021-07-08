@@ -27,45 +27,47 @@ export class ProdutoRepository extends Repository<Produto> {
             .getOne();
     };
 
-/*
-    async deleteCliente(id: number) {
-        let cliente = await this.findOne({ idCliente: id });
-        return await this.remove(cliente);
+    async updateProduto(produto: Produto) {
+        return await getConnection()
+                .createQueryBuilder()
+                .update(Produto)
+                .set({
+                    codigo: produto.codigo,
+                    descricao: produto.descricao,
+                    idTipoProduto: produto.idTipoProduto,
+                    idUnidadeMedida: produto.idUnidadeMedida,
+                    estoqueMinimo: produto.estoqueMinimo,
+                    controlaEstoque: produto.controlaEstoque,
+                    custoProduto: produto.custoProduto,
+                    precoVenda: produto.precoVenda,
+                    margem: produto.margem
+                })
+                .where("idProduto = :id", { id: produto.idProduto })
+                .execute();
     };
 
-    async updateCliente(cliente: Cliente) {
-        return await this.update(cliente.idCliente, cliente);
-    };
-
-    async createCliente(cliente: Cliente) {
+    async createProduto(produto: Produto) {
         return await getConnection()
                 .createQueryBuilder()
                 .insert()
-                .into(Cliente)
-                .values([
-                    { idEmpresa: cliente.idEmpresa,
-                      pessoa: cliente.pessoa,
-                      cpfCnpj: cliente.cpfCnpj,
-                      rgIe: cliente.rgIe,
-                      razaoSocial: cliente.razaoSocial,
-                      nomeFantasia: cliente.nomeFantasia,
-                      apelido: cliente.apelido,
-                      cep: cliente.cep,
-                      endereco: cliente.endereco,
-                      numero: cliente.numero,
-                      complemento: cliente.complemento,
-                      bairro: cliente.bairro,
-                      cidade: cliente.cidade,
-                      uf: cliente.uf,
-                      ibge: cliente.ibge,
-                      contato: cliente.contato,
-                      telefone: cliente.telefone,
-                      celular: cliente.celular,
-                      email: cliente.email,
-                      dadosAdicionais: cliente.dadosAdicionais
-                     }
-                ])
+                .into(Produto)
+                .values([{
+                    idEmpresa: produto.idEmpresa,
+                    codigo: produto.codigo,
+                    descricao: produto.descricao,
+                    idTipoProduto: produto.idTipoProduto,
+                    idUnidadeMedida: produto.idUnidadeMedida,
+                    estoqueMinimo: produto.estoqueMinimo,
+                    controlaEstoque: produto.controlaEstoque,
+                    custoProduto: produto.custoProduto,
+                    precoVenda: produto.precoVenda,
+                    margem: produto.margem
+                }])
                 .execute();
     };
-*/
+
+    async deleteProduto(id: number) {
+        let produto = await this.findOne({ idProduto: id });
+        return await this.remove(produto);
+    };
 }

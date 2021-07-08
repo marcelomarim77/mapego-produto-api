@@ -16,21 +16,19 @@ export class AppController {
         return this.appService.getProdutoById(id);
     }
 
-/*
-    @Delete('/id/:id')
-    async deleteCliente(@Param('id') id: number) {
-      return this.appService.deleteCliente(id);
-    }
-
     @Put('/id/:id')
-    async updateCliente(@Param('id') id: number, @Body() cliente: Cliente) {
-        cliente.idCliente = id;
-        return this.appService.updateCliente(cliente);
+    async updateProduto(@Param('id') id: number, @Body() produto: Produto) {
+        produto.idProduto = id;
+        return this.appService.updateProduto(produto);
     }
 
     @Post('/id/0')
-    async createCliente(@Body() cliente: Cliente) {
-        return this.appService.createCliente(cliente);
+    async createProduto(@Body() produto: Produto) {
+        return this.appService.createProduto(produto);
     }
-*/  
+
+    @Delete('/id/:id')
+    async deleteProduto(@Param('id') id: number) {
+      return this.appService.deleteProduto(id);
+    }
 }
