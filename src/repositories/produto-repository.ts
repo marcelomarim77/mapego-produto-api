@@ -10,6 +10,8 @@ export class ProdutoRepository extends Repository<Produto> {
             .createQueryBuilder("produto")
             .select("pr")
             .from(Produto, "pr")
+            .leftJoinAndSelect("pr.tipoProduto", "tipo_produto")
+            .leftJoinAndSelect("pr.unidadeMedida", "unidade_medida")
             .where("pr.id_empresa = :idEmpresa", { idEmpresa: idEmpresaParam })
             .getMany();
     }
@@ -19,6 +21,8 @@ export class ProdutoRepository extends Repository<Produto> {
             .createQueryBuilder()
             .select("pr")
             .from(Produto, "pr")
+            .leftJoinAndSelect("pr.tipoProduto", "tipo_produto")
+            .leftJoinAndSelect("pr.unidadeMedida", "unidade_medida")
             .where("pr.id_produto = :id", { id: id })
             .getOne();
     };
