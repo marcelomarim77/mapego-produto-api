@@ -18,6 +18,11 @@ export class AppService {
         return result;
     };
 
+    async getProdutoByCodigo(codigo: string) {
+        const result = await this.produtoRepository.findProdutoByCodigo(codigo);
+        return result;
+    };
+
     async updateProduto(produto: Produto) {
         const result = await this.produtoRepository.updateProduto(produto);
         return result;

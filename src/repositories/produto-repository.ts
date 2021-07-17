@@ -27,6 +27,17 @@ export class ProdutoRepository extends Repository<Produto> {
             .getOne();
     };
 
+    async findProdutoByCodigo(codigo: string) {
+        return await getConnection()
+            .createQueryBuilder()
+            .select("pr")
+            .from(Produto, "pr")
+            .leftJoinAndSelect("pr.tipoProduto", "tipo_produto")
+            .leftJoinAndSelect("pr.unidadeMedida", "unidade_medida")
+            .where("pr.codigo = :id", { codigo: codigo })
+            .getOne();
+    };
+
     async updateProduto(produto: Produto) {
         return await getConnection()
                 .createQueryBuilder()
