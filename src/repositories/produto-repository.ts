@@ -38,6 +38,19 @@ export class ProdutoRepository extends Repository<Produto> {
             .getOne();
     };
 
+    async findMateriaPrima(idEmpresa: number) {
+        return await getConnection()
+            .getRepository(Produto)
+            .createQueryBuilder("produto")
+            .select("pr")
+            .from(Produto, "pr")
+            .leftJoinAndSelect("pr.tipoProduto", "tipo_produto")
+            .leftJoinAndSelect("pr.unidadeMedida", "unidade_medida")
+            .where("pr.id_empresa = :idEmpresa", { idEmpresa: idEmpresa })
+            .andWhere("tipo_produto.produto_acabado = :produtoAcabado", { produtoAcabado: false })
+            .getMany();
+    };
+
     async updateProduto(produto: Produto) {
         return await getConnection()
                 .createQueryBuilder()
