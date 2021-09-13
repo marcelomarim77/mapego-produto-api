@@ -23,8 +23,8 @@ export class AppService {
         return result;
     };
 
-    async getMateriaPrima(idEmpresa: number) {
-        const result = await this.produtoRepository.findMateriaPrima(idEmpresa);
+    async getMateriaPrima(idEmpresa: number, idProduto: number) {
+        const result = await this.produtoRepository.findMateriaPrima(idEmpresa, idProduto);
         return result;
     };
 

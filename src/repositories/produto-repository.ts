@@ -1,6 +1,7 @@
 import { EntityRepository, Repository, getConnection } from 'typeorm';
 
 import { Produto } from '../entities/produto.entity';
+import { ComposicaoProduto } from '../entities/composicao-produto.entity';
 
 @EntityRepository(Produto)
 export class ProdutoRepository extends Repository<Produto> {
@@ -38,7 +39,17 @@ export class ProdutoRepository extends Repository<Produto> {
             .getOne();
     };
 
-    async findMateriaPrima(idEmpresa: number) {
+    async findMateriaPrima(idEmpresa: number, idProduto: number) {
+
+        // pesquisa quais produtos já fazem parte da composição para ignorar no momento de retornar a relação de matérias-primas disponíveis
+        const queryNotIn = getConnection()
+            .createQueryBuilder()
+            .select("cp.id_materia_prima")
+            .from(ComposicaoProduto, "cp")
+            .where("cp.id_empresa = :idEmpresa", { idEmpresa: idEmpresa })
+            .andWhere("cp.id_produto = :idProduto", { idProduto: idProduto });
+
+        // retorna apenas os produtos do tipo matéria-prima (produtoAcabado = false) que ainda não fazem parte da composição do produto
         return await getConnection()
             .getRepository(Produto)
             .createQueryBuilder("produto")
@@ -48,6 +59,8 @@ export class ProdutoRepository extends Repository<Produto> {
             .leftJoinAndSelect("pr.unidadeMedida", "unidade_medida")
             .where("pr.id_empresa = :idEmpresa", { idEmpresa: idEmpresa })
             .andWhere("tipo_produto.produto_acabado = :produtoAcabado", { produtoAcabado: false })
+            .andWhere("pr.id_produto NOT IN (" + queryNotIn.getQuery() + ")")
+            .setParameters(queryNotIn.getParameters())
             .getMany();
     };
 

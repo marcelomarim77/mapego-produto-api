@@ -21,9 +21,9 @@ export class AppController {
         return this.appService.getProdutoByCodigo(codigo);
     }
 
-    @Get('/materia-prima/:idEmpresa')
-    async getMateriaPrima(@Param('idEmpresa') idEmpresa: number) {
-        return this.appService.getMateriaPrima(idEmpresa);
+    @Get('/materia-prima/:idEmpresa/idProduto/:idProduto')
+    async getMateriaPrima(@Param('idEmpresa') idEmpresa: number, @Param('idProduto') idProduto: number) {
+        return this.appService.getMateriaPrima(idEmpresa, idProduto);
     }
 
     @Put('/id/:id')
